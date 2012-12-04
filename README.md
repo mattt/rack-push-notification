@@ -33,7 +33,7 @@ Each device has a `token`, which uniquely identifies the app installation on a p
 
 A device's `locale` & `language` can be used to localize outgoing communications to that particular user. Having `timezone` information gives you the ability to schedule messages for an exact time of day, to ensure maximum impact (and minimum annoyance). `ip_address` as well as `lat` and `lng` allows you to specifically target users according to their geographic location.
 
-**It is strongly recommended that you use `Rack::PushNotification` in conjunction with some sort of Rack authentication middleware, so that the registration endpoints are not accessible without some form of credentials.**
+**It is strongly recommended that you use `Rack::PushNotification` in conjunction with some sort of Rack authentication middleware, so that the administration endpoints are not accessible without some form of credentials.**
 
 ## Example Usage
 
