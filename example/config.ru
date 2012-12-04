@@ -1,8 +1,10 @@
 require 'bundler'
 Bundler.require
 
-STDOUT.sync = true
+Rack::PushNotification::Admin.use Rack::Auth::Basic do |username, password|
+  [username, password] == ['admin', ENV['ADMIN_CONSOLE_PASSWORD'] || ""]
+end
 
-DB = Sequel.connect(ENV['DATABASE_URL'] || "postgres://localhost:5432/push_notification")
-
+use Rack::PushNotification::Admin, certificate: "/path/to/apn_certificate.pem",
+                                   environment: :production
 run Rack::PushNotification

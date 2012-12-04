@@ -1,0 +1,12 @@
+<header>
+  <h1>Devices <small>See Registered Tokens</small></h1>
+</header>
+
+<form class="filter">
+  <input type="text" placeholder="Filter Devices..." value="<%= @devices.query %>"/>
+</form>
+
+<table></table>
+
+<div class="pagination"></div>
+

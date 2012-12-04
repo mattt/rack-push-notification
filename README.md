@@ -1,10 +1,13 @@
 Rack::PushNotification
 ======================
-**An extensible, Rack-mountable webservice for managing push notification information**
+**A Rack-mountable webservice for managing push notifications**
 
-There is misconception that managing push notification information is a difficult problem. It's really not.
+> This is still in early stages of development, so proceed with caution when using this in a production application. Any bug reports, feature requests, or general feedback at this point would be greatly appreciated.
 
-This library is generates a `/devices` API endpoint, that can be used by iOS apps to register and unregister for push notifications.
+`Rack::PushNotification` generates API endpoints that can be consumed by iOS apps to register and unregister for push notifications. Along with the registration API, `Rack::PushNotification` spawns an admin console that gives you a convenient interface to manage device tokens and compose targeted push notification messages.
+
+![Devices Screenshot](https://raw.github.com/mattt/rack-push-notification/screenshots/rack-push-notifications-screenshot-devices.png)
+![Compose Screenshot](https://raw.github.com/mattt/rack-push-notification/screenshots/rack-push-notifications-screenshot-compose.png)
 
 ## Example Record
 
@@ -25,7 +28,7 @@ Each device has a `token`, which uniquely identifies the app installation on a p
 
 A device's `locale` & `language` can be used to localize outgoing communications to that particular user. Having `timezone` information gives you the ability to schedule messages for an exact time of day, to ensure maximum impact (and minimum annoyance). `ip_address` as well as `lat` and `lng` allows you to specifically target users according to their geographic location.
 
-> It is recommended that you use `Rack::PushNotification` in conjunction with some sort of Rack authentication middleware, so that the registration endpoints are not accessible without some form of credentials.
+**It is strongly recommended that you use `Rack::PushNotification` in conjunction with some sort of Rack authentication middleware, so that the registration endpoints are not accessible without some form of credentials.**
 
 ## Example Usage
 
@@ -37,8 +40,12 @@ Rack::PushNotification can be run as Rack middleware or as a single web applicat
 require 'bundler'
 Bundler.require
 
-DB = Sequel.connect(ENV['DATABASE_URL'])
+Rack::PushNotification::Admin.use Rack::Auth::Basic do |username, password|
+  [username, password] == ['admin', ENV['ADMIN_CONSOLE_PASSWORD'] || ""]
+end
 
+use Rack::PushNotification::Admin, certificate: "/path/to/apn_certificate.pem",
+                                   environment: :production
 run Rack::PushNotification
 ```
 
@@ -62,6 +69,16 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
         NSLog(@"Registration Error: %@", error);
     }];
 }
+```
+
+## Deployment
+
+`Rack::PushNotification` can be deployed to Heroku with the following commands:
+
+```
+$ heroku create
+$ heroku credentials:add ADMIN_CONSOLE_PASSWORD="YourPa55wordG0esH3r3"
+$ git push heroku master
 ```
 
 ## Contact

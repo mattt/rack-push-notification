@@ -1,0 +1,12 @@
+<% if @devices.totalPages > 1: %>
+  <ul>
+    <li class="<%= 'disabled' if @devices.currentPage == @devices.firstPage %>"><a class="previous" href="#">Prev</a></li>
+    <% padding = 5 %>
+    <% lower = _.max([@devices.firstPage, @devices.currentPage - padding]) %>
+    <% upper = _.min([@devices.totalPages, @devices.currentPage + padding]) %>
+    <% for page in [lower..upper]: %>
+      <li class="<%= 'active' if page == @devices.currentPage %>"><a class="page" href="#"><%= page %></a></li>
+    <% end %>
+    <li class="<%= 'disabled' if @devices.currentPage == @devices.totalPages %>"><a class="next" href="#">Next</a></li>
+  </ul>
+<% end %>

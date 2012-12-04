@@ -1,0 +1,23 @@
+<caption>
+  <span>Showing <%= @devices.length %> of <%= @devices.total %> devices</span>
+</caption>
+<% if @devices.length > 0: %>
+  <thead>
+    <th>Token</th>
+    <th>Alias</th>
+    <th>Badge</th>
+    <th>Locale</th>
+    <th>Time Zone</th>
+  </thead>
+  <tbody>
+    <% for device in @devices.models: %>
+      <tr>
+        <td><%= device.get("token") %></td>
+        <td><%= device.get("alias") or "None" %></td>
+        <td><%= device.get("badge") %></td>
+        <td><%= device.get("locale") %></td>
+        <td><%= device.get("timezone") %></td>
+      </tr>
+    <% end %>
+  </tbody>
+<% end %>

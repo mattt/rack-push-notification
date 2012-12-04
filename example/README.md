@@ -6,8 +6,8 @@ To run the example application, ensure that you have Postgres running locally (s
 
 ```sh
 $ cd example
-$ psql -c "CREATE DATABASE push_notification;"
-$ echo "DATABASE_URL=postgres://localhost:5432/notification" > .env
+$ psql -c "CREATE DATABASE rack_push_notification;"
+$ echo "DATABASE_URL=postgres://localhost:5432/rack_push_notification" > .env
 $ bundle
 $ foreman start
 ```
