@@ -8,6 +8,7 @@ To run the example application, ensure that you have Postgres running locally (s
 $ cd example
 $ psql -c "CREATE DATABASE rack_push_notification;"
 $ echo "DATABASE_URL=postgres://localhost:5432/rack_push_notification" > .env
+$ echo "APN_CERTIFICATE_PATH=./apn_certificate_production.pem" >> .env
 $ bundle
-$ foreman start
+$ bundle exec foreman start
 ```

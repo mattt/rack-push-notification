@@ -19,7 +19,7 @@ html body
   -webkit-background-clip: padding-box
 
   & > header
-    @extend .navbar 
+    @extend .navbar
     @extend .navbar-static-top
 
     nav
@@ -31,8 +31,6 @@ html body
 [role="main"]
   & > header
     @extend .page-header
-
-    h1
 
     aside
       float: right
@@ -61,7 +59,7 @@ form#compose
 
     li
       @extend .control-group
-      
+
     input[type="radio"], label
       display: inline-block
 
@@ -82,7 +80,7 @@ form#compose
     clear: both
     width: 100%
     margin-top: 5em
-  
+
   button
     @extend .btn
     @extend .btn-large
@@ -106,5 +104,5 @@ form.filter
   margin-bottom: 0
 
   input[type="text"]
-    @extend .input-medium 
+    @extend .input-medium
     @extend .search-query

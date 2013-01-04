@@ -1,0 +1,9 @@
+*.gem
+.bundle
+.DS_Store
+example/.env
+example/.sass-cache
+example/apn_certificate_production.pem
+example/vendor
+pkg/*
+tmp

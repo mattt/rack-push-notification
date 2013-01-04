@@ -10,8 +10,6 @@ Sequel.extension(:pg_array, :migration)
 
 module Rack
   class PushNotification < Sinatra::Base
-    VERSION = '0.1.0'
-
     use Rack::PostBodyContentTypeParser
     helpers Sinatra::Param
 
