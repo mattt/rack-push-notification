@@ -1,4 +1,4 @@
-Sequel.connect(ENV['DATABASE_URL'] || "postgres://localhost:5432/rack_push_notification")
+Sequel.connect(ENV['DATABASE_URL'])
 
 module Rack
   class PushNotification::Device < Sequel::Model

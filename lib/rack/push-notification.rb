@@ -10,7 +10,8 @@ Sequel.extension(:pg_array, :migration)
 
 module Rack
   class PushNotification < Sinatra::Base
-    VERSION = '0.1.0'
+    autoload :Device, 'rack/push-notification/device'
+    autoload :Admin,  'rack/push-notification/admin'
 
     use Rack::PostBodyContentTypeParser
     helpers Sinatra::Param
@@ -52,5 +53,4 @@ module Rack
   end
 end
 
-require 'rack/push-notification/device'
-require 'rack/push-notification/admin'
+require 'rack/push-notification/version'
