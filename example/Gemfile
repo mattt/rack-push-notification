@@ -1,6 +1,6 @@
 source :rubygems
 
-gem 'rack-push-notification', :require => 'rack/push-notification', :path => File.join(__FILE__, "../..")
+gem 'rack-push-notification', require: 'rack/push-notification', path: File.join(__FILE__, "../..")
 
 gem 'sinatra'
 gem 'pg'
