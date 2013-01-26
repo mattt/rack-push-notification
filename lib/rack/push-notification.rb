@@ -52,5 +52,3 @@ module Rack
     end
   end
 end
-
-require 'rack/push-notification/version'
