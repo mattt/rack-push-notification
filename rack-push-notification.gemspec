@@ -1,13 +1,12 @@
 # -*- encoding: utf-8 -*-
 $:.push File.expand_path("../lib", __FILE__)
-require "rack/push-notification"
 
 Gem::Specification.new do |s|
   s.name        = "rack-push-notification"
   s.authors     = ["Mattt Thompson"]
   s.email       = "m@mattt.me"
   s.homepage    = "http://mattt.me"
-  s.version     = Rack::PushNotification::VERSION
+  s.version     = "0.1.2"
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Rack::PushNotification"
   s.description = "Generate a REST API for registering and querying push notification device tokens."
@@ -23,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency "eco", "~> 1.0"
   s.add_dependency "haml", "~> 3.1"
   s.add_dependency "sass", "~> 3.2"
-  s.add_dependency "bootstrap-sass", "~> 2.1"
+  s.add_dependency "bootstrap-sass", "~> 2.1.0"
   s.add_dependency "compass", "~> 0.11"
   s.add_dependency "sprockets", "~> 2.8"
   s.add_dependency "sprockets-sass", "~> 0.9"
