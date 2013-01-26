@@ -2,7 +2,7 @@ PATH
   remote: /Users/dbloete/Sources/rack-push-notification
   specs:
     rack-push-notification (0.1.2)
-      bootstrap-sass (~> 2.1)
+      bootstrap-sass (~> 2.1.0)
       coffee-script (~> 2.2)
       compass (~> 0.11)
       eco (~> 1.0)
@@ -20,8 +20,7 @@ PATH
 GEM
   remote: http://rubygems.org/
   specs:
-    bootstrap-sass (2.2.2.0)
-      sass (~> 3.2)
+    bootstrap-sass (2.1.1.0)
     chunky_png (1.2.7)
     coffee-script (2.2.0)
       coffee-script-source
