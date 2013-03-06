@@ -34,23 +34,34 @@ module Rack
 
     get '/devices/?' do
       param :q, String
-      param :offset, Integer, default: 0
-      param :limit, Integer, max: 100, min: 1, default: 25
 
-      @devices = ::Rack::PushNotification::Device.dataset
-      @devices = @devices.filter("tsv @@ to_tsquery('english', ?)", "#{params[:q]}:*") if params[:q] and not params[:q].empty?
-      
-      {
-        devices: @devices.limit(params[:limit], params[:offset]),
-        total: @devices.count
-      }.to_json
+      devices = ::Rack::PushNotification::Device.dataset
+      devices = devices.filter("tsv @@ to_tsquery('english', ?)", "#{params[:q]}:*") if params[:q] and not params[:q].empty?
+
+      if params[:page] or params[:per_page]
+        param :page, Integer, default: 1, min: 1
+        param :per_page, Integer, default: 100, in: (1..100)
+
+        {
+          devices: devices.limit(params[:per_page], (params[:page] - 1) * params[:per_page]),
+          page: params[:page],
+          total: klass.count
+        }.to_json
+      else
+        param :limit, Integer, default: 100, in: (1..100)
+        param :offset, Integer, default: 0, min: 0
+
+        {
+          devices: devices.limit(params[:limit], params[:offset])
+        }.to_json
+      end
     end
 
     get '/devices/:token/?' do
-      @record = ::Rack::PushNotification::Device.find(token: params[:token])
+      record = ::Rack::PushNotification::Device.find(token: params[:token])
 
-      if @record
-        @record.to_json
+      if record
+        {device: record}.to_json
       else
         status 404
       end

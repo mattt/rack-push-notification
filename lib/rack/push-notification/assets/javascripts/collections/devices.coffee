@@ -22,6 +22,7 @@ class RPN.Collections.Devices extends Backbone.Paginator.requestPager
   parse: (response) ->
     @total = response.total
     @totalPages = Math.ceil(@total / @perPage)
+    console.log(response)
     response.devices
 
   comparator: (database) ->

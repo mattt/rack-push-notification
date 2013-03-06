@@ -4,12 +4,10 @@ module Rack
   class PushNotification::Device < Sequel::Model
     self.dataset = :devices
 
-    Sequel::Migrator.run(self.db, ::File.join(::File.dirname(__FILE__), "migrations"))
-
     self.strict_param_setting = false
     self.raise_on_save_failure = false
 
-    plugin :json_serializer, naked: true, except: :id 
+    plugin :json_serializer, naked: true
     plugin :validation_helpers
     plugin :timestamps, force: true
     plugin :schema
@@ -29,5 +27,7 @@ module Rack
     def normalize_token!
       self.token = self.token.strip.gsub(/[<\s>]/, '')
     end
+
+    Sequel::Migrator.run(self.db, ::File.join(::File.dirname(__FILE__), "migrations")) rescue false
   end
 end

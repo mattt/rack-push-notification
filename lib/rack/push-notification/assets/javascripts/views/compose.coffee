@@ -27,12 +27,12 @@ class RPN.Views.Compose extends Backbone.View
     @updatePreview()
     @updateTime()
 
-    $.ajax "/message"
+    $.ajax("/message"
       type: "HEAD"
 
       error: (data, status) =>
         @disable()
-
+    )
     @
 
   submit: ->
@@ -44,13 +44,14 @@ class RPN.Views.Compose extends Backbone.View
     if $("input[name='recipients']:checked").val() == "specified"
       tokens = [$form.find("#tokens").val()]
 
-    $.ajax "/message"
+    $.ajax("/message"
       type: "POST"
       dataType: "json"
       data: {
         tokens: tokens,
         payload: payload
       }
+    )
       
       beforeSend: =>
         @$el.find(".alert-error, .alert-success").remove()

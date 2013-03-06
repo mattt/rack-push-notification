@@ -26,14 +26,14 @@ module Rack
       param :languages, Array
       param :tags, Array
 
-      @record = Device.find(token: params[:token]) || Device.new
-      @record.set(params)
+      record = Device.find(token: params[:token]) || Device.new
+      record.set(params)
 
-      code = @record.new? ? 201 : 200
+      code = record.new? ? 201 : 200
 
-      if @record.save
+      if record.save
         status code
-        @record.to_json
+        {device: record}.to_json
       else
         status 406
         {errors: @record.errors}.to_json
