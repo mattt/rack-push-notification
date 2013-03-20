@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    rack-push-notification (0.1.2)
+    rack-push-notification (0.2.0)
       bootstrap-sass (~> 2.1.0)
       coffee-script (~> 2.2)
       compass (~> 0.11)
