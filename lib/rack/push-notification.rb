@@ -15,7 +15,7 @@ module Rack
 
     disable :raise_errors, :show_exceptions
 
-    autoload :Device, 'rack/push-notification/device'
+    autoload :Device, 'rack/push-notification/models/device'
 
     configure do
       if ENV['DATABASE_URL']
@@ -44,14 +44,14 @@ module Rack
         {device: record}.to_json
       else
         status 406
-        {errors: @record.errors}.to_json
+        {errors: record.errors}.to_json
       end
     end
 
     delete '/devices/:token/?' do
-      @record = Device.find(token: params[:token]) or halt 404
+      record = Device.find(token: params[:token]) or halt 404
 
-      if @record.destroy
+      if record.destroy
         status 200
       else
         status 406
