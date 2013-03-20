@@ -1,10 +1,10 @@
 Sequel.migration do
   up do
-    create_table :devices do
+    create_table :push_notification_devices do
       primary_key :id
 
       column :token,      :varchar, empty: false, unique: true
-      column :alias,      :varchar 
+      column :alias,      :varchar
       column :badge,      :int4,    null: false, default: 0
       column :locale,     :varchar
       column :language,   :varchar
@@ -19,8 +19,8 @@ Sequel.migration do
       index [:lat, :lng]
     end
   end
-  
+
   down do
-    drop_table :devices
+    drop_table :push_notification_devices
   end
 end
