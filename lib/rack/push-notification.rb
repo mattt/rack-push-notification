@@ -8,7 +8,7 @@ require 'sequel'
 
 module Rack
   class PushNotification < Sinatra::Base
-    VERSION = '0.3.0'
+    VERSION = '0.3.1'
 
     use Rack::PostBodyContentTypeParser
     helpers Sinatra::Param
