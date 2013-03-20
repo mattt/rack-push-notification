@@ -1,23 +1,16 @@
 Sequel.migration do
   up do
     add_column :devices, :tsv, 'TSVector'
-
-    run %{
-      CREATE INDEX tsv_GIN ON devices \
-        USING GIN(tsv);
-    }
-
-    run %{
-      CREATE TRIGGER TS_tsv \
-        BEFORE INSERT OR UPDATE ON devices \
-      FOR EACH ROW EXECUTE PROCEDURE \
-        tsvector_update_trigger(tsv, 'pg_catalog.english', token, alias, locale, timezone);
-    }
+    add_index :devices, :tsv, type: "GIN"
+    create_trigger :devices, :tsv, :tsvector_update_trigger, 
+      args: [:tsv, :'pg_catalog.english', :token, :alias, :locale, :timezone], 
+      events: [:insert, :update], 
+      each_row: true
   end
 
   down do
     drop_column :devices, :tsv
-    drop_index :devices, :tsv_GIN
-    drop_trigger :devices, :TS_tsv
+    drop_index :devices, :tsv
+    drop_trigger :devices, :tsv
   end
 end
