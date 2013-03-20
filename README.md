@@ -6,14 +6,6 @@ Rack::PushNotification
 
 `Rack::PushNotification` generates API endpoints that can be consumed by iOS apps to register and unregister for push notifications. Along with the registration API, `Rack::PushNotification` spawns an admin console that gives you a convenient interface to manage device tokens and compose targeted push notification messages.
 
-## Screenshots
-
-![Devices Screenshot](https://raw.github.com/mattt/rack-push-notification/screenshots/rack-push-notifications-screenshot-devices.png)
-
----
-
-![Compose Screenshot](https://raw.github.com/mattt/rack-push-notification/screenshots/rack-push-notifications-screenshot-compose.png)
-
 ## Example Record
 
 <table>
@@ -45,12 +37,6 @@ Rack::PushNotification can be run as Rack middleware or as a single web applicat
 require 'bundler'
 Bundler.require
 
-Rack::PushNotification::Admin.use Rack::Auth::Basic do |username, password|
-  [username, password] == ['admin', ENV['ADMIN_CONSOLE_PASSWORD'] || ""]
-end
-
-use Rack::PushNotification::Admin, certificate: "/path/to/apn_certificate.pem",
-                                   environment: :production
 run Rack::PushNotification
 ```
 
@@ -82,7 +68,6 @@ didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 
 ```
 $ heroku create
-$ heroku credentials:add ADMIN_CONSOLE_PASSWORD="YourPa55wordG0esH3r3"
 $ git push heroku master
 ```
 

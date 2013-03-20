@@ -1,5 +1,3 @@
-Sequel.connect(ENV['DATABASE_URL'])
-
 module Rack
   class PushNotification::Device < Sequel::Model
     self.dataset = :devices
@@ -27,7 +25,5 @@ module Rack
     def normalize_token!
       self.token = self.token.strip.gsub(/[<\s>]/, '')
     end
-
-    Sequel::Migrator.run(self.db, ::File.join(::File.dirname(__FILE__), "migrations")) rescue false
   end
 end

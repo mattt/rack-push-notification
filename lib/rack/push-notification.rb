@@ -6,17 +6,25 @@ require 'sinatra/param'
 
 require 'sequel'
 
-Sequel.extension(:pg_array, :migration)
-
 module Rack
   class PushNotification < Sinatra::Base
-    autoload :Device, 'rack/push-notification/device'
-    autoload :Admin,  'rack/push-notification/admin'
+    VERSION = '0.3.0'
 
     use Rack::PostBodyContentTypeParser
     helpers Sinatra::Param
 
     disable :raise_errors, :show_exceptions
+
+    autoload :Device, 'rack/push-notification/device'
+
+    configure do
+      if ENV['DATABASE_URL']
+        Sequel.extension :pg_array, :migration
+
+        DB = Sequel.connect(ENV['DATABASE_URL'])
+        Sequel::Migrator.run(DB, ::File.join(::File.dirname(__FILE__), 'push-notification/migrations'), table: 'push_notification_schema_info')
+      end
+    end
 
     before do
       content_type :json
@@ -52,5 +60,3 @@ module Rack
     end
   end
 end
-
-require 'rack/push-notification/version'
