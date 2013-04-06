@@ -2,9 +2,7 @@ Rack::PushNotification
 ======================
 **A Rack-mountable webservice for managing push notifications**
 
-> This is still in early stages of development, so proceed with caution when using this in a production application. Any bug reports, feature requests, or general feedback at this point would be greatly appreciated.
-
-`Rack::PushNotification` generates API endpoints that can be consumed by iOS apps to register and unregister for push notifications. Along with the registration API, `Rack::PushNotification` spawns an admin console that gives you a convenient interface to manage device tokens and compose targeted push notification messages.
+`Rack::PushNotification` generates API endpoints that can be consumed by iOS apps to register and unregister for push notifications.
 
 ## Example Record
 
