@@ -29,7 +29,7 @@ A device's `locale` & `language` can be used to localize outgoing communications
 
 ## Example Usage
 
-Rack::PushNotification can be run as Rack middleware or as a single web application. All that is required is a connection to a Postgres database.
+Rack::PushNotification can be run as Rack middleware or as a single web application. All that is required is a connection to a Postgres database. You must define this with the environment variable `DATABASE_URL`. For rails, use the `rails-database-url` to define this from the `database.yml`.
 
 ### config.ru
 
