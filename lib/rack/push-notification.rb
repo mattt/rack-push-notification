@@ -44,7 +44,7 @@ module Rack
         status code
         {device: record}.to_json
       else
-        status 406
+        status 400
         {errors: record.errors}.to_json
       end
     end
@@ -55,7 +55,7 @@ module Rack
       if record.destroy
         status 200
       else
-        status 406
+        status 400
         {errors: record.errors}.to_json
       end
     end
