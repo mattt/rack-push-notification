@@ -22,6 +22,7 @@ module Rack
         Sequel.extension :pg_array, :migration
 
         DB = Sequel.connect(ENV['DATABASE_URL'])
+        DB.extend Sequel::Postgres::PGArray::DatabaseMethods
         Sequel::Migrator.run(DB, ::File.join(::File.dirname(__FILE__), 'push-notification/migrations'), table: 'push_notification_schema_info')
       end
     end
