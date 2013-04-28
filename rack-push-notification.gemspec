@@ -11,15 +11,15 @@ Gem::Specification.new do |s|
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Rack::PushNotification"
   s.description = "Generate a REST API for registering and querying push notification device tokens."
-  s.add_development_dependency "rspec", "~> 0.6"
-  s.add_development_dependency "rake",  "~> 0.9"
 
   s.add_dependency "rack", "~> 1.4"
   s.add_dependency "rack-contrib", "~> 1.1"
   s.add_dependency "sequel", "~> 3.37"
   s.add_dependency "sinatra", "~> 1.3"
   s.add_dependency "sinatra-param", "~> 0.1"
-  s.add_dependency "houston", "~> 0.1.1"
+
+  s.add_development_dependency "rspec"
+  s.add_development_dependency "rake"
 
   s.files         = Dir["./**/*"].reject { |file| file =~ /\.\/(bin|example|log|pkg|script|spec|test|vendor)/ }
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
