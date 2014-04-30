@@ -13,7 +13,7 @@ Gem::Specification.new do |s|
 
   s.add_dependency "rack", "~> 1.4"
   s.add_dependency "rack-contrib", "~> 1.1"
-  s.add_dependency "sequel", "~> 3.37"
+  s.add_dependency "sequel", ">= 3.0"
   s.add_dependency "sinatra", "~> 1.3"
   s.add_dependency "sinatra-param", "~> 0.1"
 
