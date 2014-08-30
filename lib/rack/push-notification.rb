@@ -17,7 +17,7 @@ module Rack
 
     configure do
       if ENV['DATABASE_URL']
-        Sequel.extension :pg_array, :migration
+        Sequel.extension :pg_inet, :pg_array, :migration
 
         DB = Sequel.connect(ENV['DATABASE_URL'])
         DB.extend Sequel::Postgres::PGArray::DatabaseMethods
@@ -34,7 +34,7 @@ module Rack
       param :tags, Array
 
       record = Device.find(token: params[:token]) || Device.new
-      record.set(params)
+      record.set(params.update({ip_address: request.ip}))
 
       code = record.new? ? 201 : 200
 
