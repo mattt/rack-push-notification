@@ -17,7 +17,8 @@ module Rack
 
     configure do
       if ENV['DATABASE_URL']
-        Sequel.extension :pg_inet, :pg_array, :migration
+        Sequel.extension :pg_inet, :migration
+        Sequel::Model.db.extension :pg_array
 
         DB = Sequel.connect(ENV['DATABASE_URL'])
         DB.extend Sequel::Postgres::PGArray::DatabaseMethods
