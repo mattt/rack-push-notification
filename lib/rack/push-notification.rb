@@ -18,9 +18,9 @@ module Rack
     configure do
       if ENV['DATABASE_URL']
         Sequel.extension :pg_inet, :migration
-        Sequel::Model.db.extension :pg_array
 
         DB = Sequel.connect(ENV['DATABASE_URL'])
+        Sequel::Model.db.extension :pg_array
         DB.extend Sequel::Postgres::PGArray::DatabaseMethods
         Sequel::Migrator.run(DB, ::File.join(::File.dirname(__FILE__), 'push-notification/migrations'), table: 'push_notification_schema_info')
       end
