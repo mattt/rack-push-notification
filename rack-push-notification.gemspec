@@ -7,6 +7,7 @@ Gem::Specification.new do |s|
   s.email       = "m@mattt.me"
   s.homepage    = "http://mattt.me"
   s.version     = "0.5.3"
+  s.licenses    = "MIT"
   s.platform    = Gem::Platform::RUBY
   s.summary     = "Rack::PushNotification"
   s.description = "Generate a REST API for registering and querying push notification device tokens."
