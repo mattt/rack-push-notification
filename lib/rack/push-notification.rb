@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'rack'
 require 'rack/contrib'
 
@@ -35,27 +37,27 @@ module Rack
       param :tags, Array
 
       record = Device.find(token: params[:token]) || Device.new
-      record.set(params.update({ip_address: request.ip}))
+      record.set(params.update(ip_address: request.ip))
 
       code = record.new? ? 201 : 200
 
       if record.save
         status code
-        {device: record}.to_json
+        { device: record }.to_json
       else
         status 400
-        {errors: record.errors}.to_json
+        { errors: record.errors }.to_json
       end
     end
 
     delete '/devices/:token/?' do
-      record = Device.find(token: params[:token]) or halt 404
+      (record = Device.find(token: params[:token])) || halt(404)
 
       if record.destroy
         status 200
       else
         status 400
-        {errors: record.errors}.to_json
+        { errors: record.errors }.to_json
       end
     end
   end

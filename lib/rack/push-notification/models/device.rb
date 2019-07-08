@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 module Rack
   class PushNotification::Device < Sequel::Model
     plugin :json_serializer, naked: true, except: :id
@@ -24,7 +26,7 @@ module Rack
     private
 
     def normalize_token!
-      self.token = self.token.strip.gsub(/[<\s>]/, '')
+      self.token = token.strip.gsub(/[<\s>]/, '')
     end
   end
 end
