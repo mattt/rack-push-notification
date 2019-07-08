@@ -1,7 +1,9 @@
-source "https://rubygems.org"
+# frozen_string_literal: true
 
-gem 'rack-push-notification', require: 'rack/push-notification', path: File.join(__FILE__, "../..")
+source 'https://rubygems.org'
 
-gem 'sinatra'
+gem 'rack-push-notification', require: 'rack/push-notification', path: File.join(__FILE__, '../..')
+
 gem 'pg'
+gem 'sinatra'
 gem 'thin'
