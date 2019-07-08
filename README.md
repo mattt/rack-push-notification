@@ -1,33 +1,55 @@
-Rack::PushNotification
-======================
+# Rack::PushNotification
+
 **A Rack-mountable webservice for managing push notifications**
 
-`Rack::PushNotification` generates API endpoints that can be consumed by iOS apps to register and unregister for push notifications.
+`Rack::PushNotification` is Rack middleware that
+generates API endpoints that can be consumed by iOS apps
+to register and unregister for push notifications.
 
-## Example Record
+**Example Record**
 
-<table>
-  <tr><td><tt>token</tt></td><td>"ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969"</td></tr>
-  <tr><td><tt>alias</tt></td><td>mattt@heroku.com</td></tr>
-  <tr><td><tt>badge</tt></td><td>0</td></tr>
-  <tr><td><tt>locale</tt></td><td>en_US</td></tr>
-  <tr><td><tt>language</tt></td><td>en</td></tr>
-  <tr><td><tt>timezone</tt></td><td>America/Los_Angeles</td></tr>
-  <tr><td><tt>ip_address</tt></td><td>0.0.0.0</td></tr>
-  <tr><td><tt>lat</tt></td><td>37.7716</td></tr>
-  <tr><td><tt>lng</tt></td><td>-122.4137</td></tr>
-  <tr><td><tt>tags</tt></td><td><tt>["iPhone OS 6.0", "v1.0", "iPhone"]</tt></td></tr>
-</table>
+| Field        | Value                                                                       |
+| ------------ | --------------------------------------------------------------------------- |
+| `token`      | `"ce8be627 2e43e855 16033e24 b4c28922 0eeda487 9c477160 b2545e95 b68b5969"` |
+| `alias`      | `mattt@heroku.com`                                                          |
+| `badge`      | `0`                                                                         |
+| `locale`     | `en_US`                                                                     |
+| `language`   | `en`                                                                        |
+| `timezone`   | `America/Los_Angeles`                                                       |
+| `ip_address` | `0.0.0.0`                                                                   |
+| `lat`        | `37.7716`                                                                   |
+| `lng`        | `-122.4137`                                                                 |
+| `tags`       | `["iPhone OS 6.0", "v1.0", "iPhone"]`                                       |
 
-Each device has a `token`, which uniquely identifies the app installation on a particular device. This token can be associated with an `alias`, which can be a domain-specific piece of identifying information, such as a username or e-mail address. A running `badge` count is used to keep track of the badge count to show on the app icon.
+- Each device has a `token`,
+  which uniquely identifies the app installation on a particular device.
+- This token can be associated with an `alias`,
+  which can be a domain-specific piece of identifying information,
+  such as a username or e-mail address.
+- A running `badge` count keeps track of the badge count to show on the app icon.
+- A device's `locale` & `language` can be used to
+  localize outgoing communications to that particular user.
+- Having `timezone` information gives you the ability to
+  schedule messages for an exact time of day and to
+  ensure maximum impact (and minimum annoyance).
+- An `ip_address` --- along with `lat` and `lng` ---
+  lets you to specifically target users according to their geographic location.
 
-A device's `locale` & `language` can be used to localize outgoing communications to that particular user. Having `timezone` information gives you the ability to schedule messages for an exact time of day, to ensure maximum impact (and minimum annoyance). `ip_address` as well as `lat` and `lng` allows you to specifically target users according to their geographic location.
+> **Important**
+> Use `Rack::PushNotification` in conjunction with some kind of authentication,
+> so that the administration endpoints aren't publicly accessible.
 
-**It is strongly recommended that you use `Rack::PushNotification` in conjunction with some sort of Rack authentication middleware, so that the administration endpoints are not accessible without some form of credentials.**
+## Usage
 
-## Example Usage
+Rack::PushNotification can be run as Rack middleware or as a single web application.
+All that's required is a connection to a Postgres database.
+Define this with the environment variable `DATABASE_URL`.
 
-Rack::PushNotification can be run as Rack middleware or as a single web application. All that is required is a connection to a Postgres database. You must define this with the environment variable `DATABASE_URL`. For rails, use the [`rails-database-url`](https://github.com/glenngillen/rails-database-url) gem to define this from the `database.yml`.
+> For rails, use the
+> [`rails-database-url`](https://github.com/glenngillen/rails-database-url) gem
+> to define this from the `database.yml`.
+
+An example application can be found in the `/example` directory of this repository.
 
 ### config.ru
 
@@ -36,28 +58,6 @@ require 'bundler'
 Bundler.require
 
 run Rack::PushNotification
-```
-
-An example application can be found in the `/example` directory of this repository.
-
-## iOS Client Library
-
-To get the full benefit of `Rack::PushNotification`, use the [Orbiter](https://github.com/mattt/Orbiter) library to register for Push Notifications on iOS.
-
-```objective-c
-#import "Orbiter.h"
-
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
-{
-    NSURL *serverURL = [NSURL URLWithString:@"http://raging-notification-3556.herokuapp.com/"]
-    Orbiter *orbiter = [[Orbiter alloc] initWithBaseURL:serverURL credential:nil];
-    [orbiter registerDeviceToken:deviceToken withAlias:nil success:^(id responseObject) {
-        NSLog(@"Registration Success: %@", responseObject);
-    } failure:^(NSError *error) {
-        NSLog(@"Registration Error: %@", error);
-    }];
-}
 ```
 
 ## Deployment
@@ -71,12 +71,9 @@ $ git push heroku master
 
 ## Contact
 
-Mattt Thompson
-
-- http://github.com/mattt
-- http://twitter.com/mattt
-- m@mattt.me
+[Mattt](https://twitter.com/mattt)
 
 ## License
 
-Rack::PushNotification is available under the MIT license. See the LICENSE file for more info.
+Rack::PushNotification is available under the MIT license.
+See the LICENSE file for more info.
