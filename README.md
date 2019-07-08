@@ -1,6 +1,8 @@
 # Rack::PushNotification
 
-**A Rack-mountable webservice for managing push notifications**
+**A Rack-mountable web service for managing push notifications**
+
+> This project is no longer maintained.
 
 `Rack::PushNotification` is Rack middleware that
 generates API endpoints that can be consumed by iOS apps
